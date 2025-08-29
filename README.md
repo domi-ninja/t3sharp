@@ -1,13 +1,19 @@
 
 # t3sharp
 
-## Get my C# types into a Typescript Frontend 
+## Get my C# types into a Typescript frontend 
 
 This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app` and integrated with a C# ASP.NET Core backend.
 
 ## How polished is this
 
 This is a rough draft, PRs welcome
+
+**Alternatives**
+
+- https://github.com/jburzynski/TypeGen
+- https://github.com/CloudNimble/TypeLitePlus
+- https://github.com/RicoSuter/NSwag
 
 ## C# Backend Integration
 
