@@ -11,6 +11,7 @@ export default function TypeSafetyDemo() {
   });
   const [error, setError] = useState("");
 
+  // React Query in 100 Seconds https://www.youtube.com/watch?v=novnyCaa7To
   const forecasts = useQuery({
     queryKey: ['weather-forecasts'],
     queryFn: async () => {
