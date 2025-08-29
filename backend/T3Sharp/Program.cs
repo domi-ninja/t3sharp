@@ -1,8 +1,14 @@
+using FluentValidation;
+using T3Sharp.DTOs;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
+
+// Add FluentValidation
+builder.Services.AddValidatorsFromAssemblyContaining<CreateWeatherForecastValidator>();
 
 // Add CORS configuration
 builder.Services.AddCors(options =>

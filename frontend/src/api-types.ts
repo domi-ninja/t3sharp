@@ -24,11 +24,17 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
+        CreateWeatherForecastDto: {
+            date: string;
+            /** Format: int32 */
+            temperatureC: number;
+            summary?: string | null;
+        };
         WeatherForecast: {
             /** Format: date */
-            date?: string;
+            date: string;
             /** Format: int32 */
-            temperatureC?: number;
+            temperatureC: number;
             /** Format: int32 */
             readonly temperatureF?: number;
             summary?: string | null;
@@ -73,9 +79,9 @@ export interface operations {
         };
         requestBody?: {
             content: {
-                "application/json": components["schemas"]["WeatherForecast"];
-                "text/json": components["schemas"]["WeatherForecast"];
-                "application/*+json": components["schemas"]["WeatherForecast"];
+                "application/json": components["schemas"]["CreateWeatherForecastDto"];
+                "text/json": components["schemas"]["CreateWeatherForecastDto"];
+                "application/*+json": components["schemas"]["CreateWeatherForecastDto"];
             };
         };
         responses: {

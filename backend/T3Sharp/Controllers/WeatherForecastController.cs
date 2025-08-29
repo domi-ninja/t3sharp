@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using FluentValidation;
+using T3Sharp.DTOs;
 
 namespace T3Sharp.Controllers
 {
@@ -11,9 +13,10 @@ namespace T3Sharp.Controllers
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, IValidator<CreateWeatherForecastDto> validator)
         {
             _logger = logger;
+            _validator = validator;
 
             this.forecasts = new List<WeatherForecast>( Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
@@ -25,6 +28,7 @@ namespace T3Sharp.Controllers
         
 
         private readonly ILogger<WeatherForecastController> _logger;
+        private readonly IValidator<CreateWeatherForecastDto> _validator;
         private readonly List<WeatherForecast> forecasts;
 
 
@@ -35,9 +39,25 @@ namespace T3Sharp.Controllers
         }
 
         [HttpPost(Name = "AddWeatherForecast")]
-        public IActionResult AddWeatherForecast(WeatherForecast model)
+        public async Task<IActionResult> AddWeatherForecast([FromBody] CreateWeatherForecastDto dto)
         {
-            this.forecasts.Add(model);
+            var validationResult = await _validator.ValidateAsync(dto);
+            if (!validationResult.IsValid)
+            {
+                return BadRequest(validationResult.Errors.Select(e => new { 
+                    Property = e.PropertyName, 
+                    Error = e.ErrorMessage 
+                }));
+            }
+
+            var weatherForecast = new WeatherForecast
+            {
+                Date = DateOnly.Parse(dto.Date),
+                TemperatureC = dto.TemperatureC,
+                Summary = dto.Summary
+            };
+
+            this.forecasts.Add(weatherForecast);
             return Ok(new { message = "Weather forecast added successfully" });
         }
     }
