@@ -9,6 +9,12 @@ This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3
 
 This is a rough draft, PRs welcome
 
+**Alternatives**
+
+- https://github.com/jburzynski/TypeGen
+- https://github.com/CloudNimble/TypeLitePlus
+- https://github.com/RicoSuter/NSwag
+
 ## C# Backend Integration
 
 This frontend connects to a C# ASP.NET Core backend API. The backend provides OpenAPI/Swagger documentation that we use to generate TypeScript types and function signatures automatically.
