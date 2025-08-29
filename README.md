@@ -1,11 +1,7 @@
 
 # t3sharp
 
-## Get my C# types into a NextJS Frontend
-
-<img width="920" height="448" alt="image" src="https://github.com/user-attachments/assets/832b639a-a6f1-4548-8f3c-784ca30e1680" />
-
-> none of this shit thank you very much
+## Get my C# types into a Typescript Frontend 
 
 This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app` and integrated with a C# ASP.NET Core backend.
 
