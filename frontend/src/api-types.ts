@@ -25,19 +25,19 @@ export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
         CreateWeatherForecastDto: {
-            date: string;
+            Date: string;
             /** Format: int32 */
-            temperatureC: number;
-            summary?: string | null;
+            TemperatureC: number;
+            Summary?: string | null;
         };
         WeatherForecast: {
             /** Format: date */
-            date: string;
+            Date: string;
             /** Format: int32 */
-            temperatureC: number;
+            TemperatureC: number;
             /** Format: int32 */
             readonly temperatureF?: number;
-            summary?: string | null;
+            Summary?: string | null;
         };
     };
     responses: never;

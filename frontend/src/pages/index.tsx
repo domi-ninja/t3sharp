@@ -6,7 +6,6 @@ import TypeSafetyDemo from "./type-safety-demo";
 
 export default function Home() {
   const hello = api.post.hello.useQuery({ text: "from tRPC" });
-  const weather = api.weather.getWeatherForecast.useQuery();
 
   return (
     <>
@@ -51,7 +50,7 @@ export default function Home() {
           <TypeSafetyDemo></TypeSafetyDemo>
 
           {/* Weather Forecast Section */}
-          <div className="w-full max-w-4xl">
+          {/* <div className="w-full max-w-4xl">
             <h2 className="mb-4 text-3xl font-bold text-white">Weather Forecast</h2>
             {weather.isLoading && (
               <p className="text-lg text-white">Loading weather data...</p>
@@ -61,28 +60,28 @@ export default function Home() {
             )}
             {weather.data && (
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
-                {weather.data.map((forecast, index) => (
+                {weather.data.map((forecast: WeatherForecast, index: number) => (
                   <div
                     key={index}
                     className="flex flex-col gap-2 rounded-lg bg-white/10 p-4 text-white"
                   >
                     <p className="text-sm font-semibold">
-                      {forecast.date ? new Date(forecast.date).toLocaleDateString() : "N/A"}
+                      {forecast.Date ? new Date(forecast.Date).toLocaleDateString() : "N/A"}
                     </p>
                     <p className="text-2xl font-bold">
-                      {forecast.temperatureC}°C
+                      {forecast.TemperatureC}°C
                     </p>
                     <p className="text-sm">
                       {forecast.temperatureF}°F
                     </p>
                     <p className="text-sm italic">
-                      {forecast.summary || "No summary"}
+                      {forecast.Summary || "No summary"}
                     </p>
                   </div>
                 ))}
               </div>
             )}
-          </div>
+          </div> */}
         </div>
       </main>
     </>

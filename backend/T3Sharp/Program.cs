@@ -5,7 +5,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        // Use PascalCase for JSON property names to match C# DTOs
+        options.JsonSerializerOptions.PropertyNamingPolicy = null;
+    });
 
 // Add FluentValidation
 builder.Services.AddValidatorsFromAssemblyContaining<CreateWeatherForecastValidator>();
@@ -34,7 +39,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+// Remove HTTPS redirection for development
+// app.UseHttpsRedirection();
 
 app.UseCors("AllowFrontend");
 

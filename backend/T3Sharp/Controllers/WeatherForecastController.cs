@@ -28,7 +28,7 @@ namespace T3Sharp.Controllers
 
         private static void CreateData()
         {
-            forecasts = new List<WeatherForecast>(Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            forecasts = new List<WeatherForecast>(Enumerable.Range(1, 2).Select(index => new WeatherForecast
             {
                 Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
                 TemperatureC = Random.Shared.Next(-20, 55),
