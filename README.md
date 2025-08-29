@@ -21,6 +21,10 @@ This frontend connects to a C# ASP.NET Core backend API. The backend provides Op
 npm run dev
 ```
 
+---
+
+# t3 stack infos 
+
 ## What's next? How do I make an app with this?
 
 We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
