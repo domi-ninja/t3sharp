@@ -5,6 +5,7 @@ import { api } from "~/utils/api";
 
 export default function Home() {
   const hello = api.post.hello.useQuery({ text: "from tRPC" });
+  const weather = api.weather.getWeatherForecast.useQuery();
 
   return (
     <>
@@ -45,6 +46,40 @@ export default function Home() {
           <p className="text-2xl text-white">
             {hello.data ? hello.data.greeting : "Loading tRPC query..."}
           </p>
+          
+          {/* Weather Forecast Section */}
+          <div className="w-full max-w-4xl">
+            <h2 className="mb-4 text-3xl font-bold text-white">Weather Forecast</h2>
+            {weather.isLoading && (
+              <p className="text-lg text-white">Loading weather data...</p>
+            )}
+            {weather.error && (
+              <p className="text-lg text-red-400">Error loading weather data: {weather.error.message}</p>
+            )}
+            {weather.data && (
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
+                {weather.data.map((forecast, index) => (
+                  <div
+                    key={index}
+                    className="flex flex-col gap-2 rounded-lg bg-white/10 p-4 text-white"
+                  >
+                    <p className="text-sm font-semibold">
+                      {forecast.date ? new Date(forecast.date).toLocaleDateString() : "N/A"}
+                    </p>
+                    <p className="text-2xl font-bold">
+                      {forecast.temperatureC}°C
+                    </p>
+                    <p className="text-sm">
+                      {forecast.temperatureF}°F
+                    </p>
+                    <p className="text-sm italic">
+                      {forecast.summary || "No summary"}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
       </main>
     </>
