@@ -5,6 +5,10 @@
 
 This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app` and integrated with a C# ASP.NET Core backend.
 
+## How polished is this
+
+This is a rough draft, PRs welcome
+
 ## C# Backend Integration
 
 This frontend connects to a C# ASP.NET Core backend API. The backend provides OpenAPI/Swagger documentation that we use to generate TypeScript types and function signatures automatically.
