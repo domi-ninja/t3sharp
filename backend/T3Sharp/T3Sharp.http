@@ -1,0 +1,6 @@
+@T3Sharp_HostAddress = http://localhost:5194
+
+GET {{T3Sharp_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
