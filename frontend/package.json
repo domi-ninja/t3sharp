@@ -8,10 +8,12 @@
     "check": "biome check .",
     "check:unsafe": "biome check --write --unsafe .",
     "check:write": "biome check --write .",
-    "dev": "next dev --turbo",
+    "dev": "concurrently -k -n TYPES,NEXT -c yellow,cyan \"npm:generate-types:watch\" \"next dev --turbo\"",
     "preview": "next build && next start",
     "start": "next start",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "generate-types": "npx openapi-typescript http://localhost:5194/swagger/v1/swagger.json -o ./src/api-types.ts",
+    "generate-types:watch": "npm run generate-types && chokidar \"../backend/T3Sharp/**/*.{cs,csproj}\" -c \"npm run generate-types\""
   },
   "dependencies": {
     "@t3-oss/env-nextjs": "^0.12.0",
@@ -32,9 +34,12 @@
     "@types/node": "^20.14.10",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
+    "chokidar-cli": "^3.0.0",
+    "openapi-typescript": "^7.4.4",
     "postcss": "^8.5.3",
     "tailwindcss": "^4.0.15",
-    "typescript": "^5.8.2"
+    "typescript": "^5.8.2",
+    "concurrently": "^9.1.0"
   },
   "ct3aMetadata": {
     "initVersion": "7.39.3"
