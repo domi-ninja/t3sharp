@@ -2,6 +2,7 @@ import Head from "next/head";
 import Link from "next/link";
 
 import { api } from "~/utils/api";
+import TypeSafetyDemo from "./type-safety-demo";
 
 export default function Home() {
   const hello = api.post.hello.useQuery({ text: "from tRPC" });
@@ -47,6 +48,8 @@ export default function Home() {
             {hello.data ? hello.data.greeting : "Loading tRPC query..."}
           </p>
           
+          <TypeSafetyDemo></TypeSafetyDemo>
+
           {/* Weather Forecast Section */}
           <div className="w-full max-w-4xl">
             <h2 className="mb-4 text-3xl font-bold text-white">Weather Forecast</h2>

@@ -13,23 +13,31 @@ namespace T3Sharp.Controllers
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
 
+        private static List<WeatherForecast> forecasts;
+
         public WeatherForecastController(ILogger<WeatherForecastController> logger, IValidator<CreateWeatherForecastDto> validator)
         {
             _logger = logger;
             _validator = validator;
 
-            this.forecasts = new List<WeatherForecast>( Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            if (forecasts==null)
+            {
+                CreateData();
+            }
+        }
+
+        private static void CreateData()
+        {
+            forecasts = new List<WeatherForecast>(Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
                 Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
                 TemperatureC = Random.Shared.Next(-20, 55),
                 Summary = Summaries[Random.Shared.Next(Summaries.Length)]
             }));
         }
-        
 
         private readonly ILogger<WeatherForecastController> _logger;
         private readonly IValidator<CreateWeatherForecastDto> _validator;
-        private readonly List<WeatherForecast> forecasts;
 
 
         [HttpGet(Name = "GetWeatherForecast")]
@@ -57,7 +65,7 @@ namespace T3Sharp.Controllers
                 Summary = dto.Summary
             };
 
-            this.forecasts.Add(weatherForecast);
+            forecasts.Add(weatherForecast);
             return Ok(new { message = "Weather forecast added successfully" });
         }
     }

@@ -1,10 +1,9 @@
 import { useState } from "react";
-import { weatherApi } from "../lib/api-client";
-import { createWeatherForecastSchema, type CreateWeatherForecastInput, type WeatherForecast } from "../schemas/weather";
+import { weatherApi, type CreateWeatherForecastDto, type WeatherForecast } from "../lib/api-client";
 
 export default function TypeSafetyDemo() {
   const [forecasts, setForecasts] = useState<WeatherForecast[]>([]);
-  const [formData, setFormData] = useState<CreateWeatherForecastInput>({
+  const [formData, setFormData] = useState<CreateWeatherForecastDto>({
     date: "",
     temperatureC: 0,
     summary: "",
@@ -13,8 +12,8 @@ export default function TypeSafetyDemo() {
 
   const loadForecasts = async () => {
     try {
-      // Type-safe API call - TypeScript knows this returns WeatherForecast[]
-      const data = await weatherApi.getWeatherForecast();
+      // Type-safe API call using openapi-typescript-fetch
+      const { data } = await weatherApi.getWeatherForecast({});
       setForecasts(data);
       setError("");
     } catch (err) {
@@ -25,11 +24,9 @@ export default function TypeSafetyDemo() {
   const addForecast = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      // Runtime validation using Zod
-      const validatedData = createWeatherForecastSchema.parse(formData);
-      
-      // Type-safe API call - TypeScript ensures we're sending the right type
-      await weatherApi.addWeatherForecast(validatedData);
+      // NO frontend validation - let the backend handle ALL validation
+      // Type-safe API call using openapi-typescript-fetch
+      await weatherApi.addWeatherForecast({ body: formData } as any);
       
       // Reload the data
       await loadForecasts();
@@ -43,17 +40,17 @@ export default function TypeSafetyDemo() {
   };
 
   return (
-    <div style={{ padding: "20px", maxWidth: "800px", margin: "0 auto" }}>
+    <div className="text-white">
       <h1>🎯 Type Safety Demonstration</h1>
       
       <div style={{ marginBottom: "30px" }}>
-        <h2>What makes this type-safe:</h2>
-        <ul>
-          <li><strong>Backend:</strong> C# DTOs with FluentValidation ensure data integrity</li>
-          <li><strong>OpenAPI:</strong> Auto-generated TypeScript types from C# backend</li>
-          <li><strong>Frontend:</strong> Zod schemas provide runtime validation matching backend</li>
-          <li><strong>API Client:</strong> Fully typed API calls with proper error handling</li>
-        </ul>
+                 <h2>What makes this type-safe:</h2>
+         <ul>
+           <li><strong>Backend:</strong> C# DTOs with FluentValidation - SINGLE SOURCE OF TRUTH</li>
+           <li><strong>OpenAPI:</strong> Auto-generated TypeScript types from C# backend</li>
+           <li><strong>Frontend:</strong> NO validation - relies completely on backend</li>
+           <li><strong>API Client:</strong> Fully typed API calls that show backend validation errors</li>
+         </ul>
       </div>
 
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "20px" }}>
@@ -142,16 +139,6 @@ export default function TypeSafetyDemo() {
         </div>
       )}
 
-      <div style={{ marginTop: "30px", padding: "20px", backgroundColor: "#f5f5f5", borderRadius: "5px" }}>
-        <h3>🔥 Type Safety Features Demonstrated:</h3>
-        <ul>
-          <li><strong>Compile-time type checking:</strong> TypeScript catches type mismatches at build time</li>
-          <li><strong>Runtime validation:</strong> Zod validates data structure and values at runtime</li>
-          <li><strong>API error handling:</strong> Backend validation errors are properly typed and displayed</li>
-          <li><strong>Auto-completion:</strong> IDE provides full auto-completion for API types</li>
-          <li><strong>Refactoring safety:</strong> Changes to backend types automatically flow to frontend</li>
-        </ul>
-      </div>
     </div>
   );
 }
