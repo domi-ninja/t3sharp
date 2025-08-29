@@ -39,10 +39,9 @@ export default function TypeSafetyDemo() {
 
   return (
     <div className="text-white">
-      <h1 className="text-2xl font-bold mb-6">🎯 Type Safety Demonstration</h1>
+      <h1 className="text-2xl font-bold mb-6">Type Safety Demo</h1>
       
       <div className="mb-8">
-        <h2 className="text-xl font-semibold mb-4">What makes this type-safe:</h2>
         <ul className="list-disc list-inside space-y-2">
           <li><strong>Backend:</strong> C# DTOs with FluentValidation -  Source of truth</li>
           <li><strong>OpenAPI:</strong> Auto-generated TypeScript types from C# backend</li>
